@@ -1,0 +1,239 @@
+<?php
+
+/**
+ * @file
+ * A block module that displays latest posts.
+ */
+
+
+/**
+ * Implements hook_help().
+ *
+ * Displays help and module information.
+ *
+ */
+function latest_posts_help($path, $arg) {
+    switch ($path) {
+        case "admin/help#latest_posts":
+            return '<p>' . t("Displays links to newly created posts developed by CodexWorld") . '</p>';
+            break;
+    }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function latest_posts_block_info() {
+    $blocks['latest_posts'] = array(
+        // The name that will appear in the block list.
+        'info' => t('Latest posts'),
+        // Default setting.
+        'cache' => DRUPAL_CACHE_PER_ROLE,
+    );
+    return $blocks;
+}
+
+
+/**
+ * Custom content function. 
+ * 
+ * Set beginning and end dates, retrieve the recent posts from the database
+ */
+function recent_posts_contents($display){
+    //Get today's date.
+    $today = getdate();
+
+    //Calculate the date a week ago.
+    $start_time = mktime(0, 0, 0,$today['mon'],($today['mday'] - 14), $today['year']);
+    //Get all posts from one week ago to the present.
+    $end_time = time();
+    
+    //NEW LINE 
+    $limit = variable_get('latest_posts_limit', 3);
+    
+	//Use Database API to retrieve current posts.
+	$query = db_select('node', 'n')
+        ->fields('n', array('nid', 'title', 'created'))
+		->condition('status', 1) //Published.
+		->condition('created', array($start_time, $end_time), 'BETWEEN')
+		->orderBy('created', 'DESC'); //Most recent first. Query paused here.
+		
+		if ($display == 'block'){ 
+			// Restrict the range if called with 'block' argument.
+			$query->range(0, $limit);
+		} //Now proceeds to execute().
+
+	//If called by page, query proceeds directly to execute().
+	return $query->execute();
+}
+
+/**
+ * Implements hook_block_view().
+ * 
+ * Prepares the contents of the block.
+ */
+function latest_posts_block_view($delta = '') {
+    switch ($delta) {
+        case 'latest_posts':
+            $block['subject'] = t('Latest posts');
+            if (user_access('access content')) {
+                // Use our custom function to retrieve data.
+                $result = recent_posts_contents('block');
+                // Array to contain items for the block to render.
+                $items = array();
+                // Iterate over the resultset and format as links.
+                foreach ($result as $node) {
+                  $items[] = array(
+                    'title' => l($node->title, 'node/' . $node->nid),
+                    'created' => t($node->created)
+                  ); 
+                }
+                // No content in the last week.
+                if (empty($items)) {
+                    $block['content'] = t('No posts available.');  
+                } 
+                else {
+                    // Pass data through theme function.
+                    $block['content'] = theme('latest_posts_template', array(
+                      'items' => $items));
+                }
+          }
+        return $block;
+    }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function latest_posts_menu() {
+    $items = array();
+  	$items['admin/config/content/latest_posts'] = array(
+      'title' => 'Latest posts',
+      'description' => 'Configuration for Latest posts module',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('latest_posts_form'),
+      'access arguments' => array('access administration pages'),
+      'type' => MENU_NORMAL_ITEM,
+    );
+    $items['latest_posts'] = array(
+        'title' => 'Latest Posts',
+        'page callback' => '_latest_posts_page',
+        'access arguments' => array('access latest_posts content'),
+        'type' => MENU_NORMAL_ITEM, //Will appear in Navigation menu.
+      );
+  
+    return $items;
+}
+
+/**
+ * Page callback: Latest posts settings
+ *
+ * @see latest_posts_form()
+ */
+function latest_posts_form($form, &$form_state) {
+	$form['latest_posts_limit'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Maximum number of posts'),
+      '#default_value' => variable_get('latest_posts_limit', 3),
+      '#size' => 2,
+      '#maxlength' => 2,
+      '#description' => t('The maximum number of links to display in the block.'),
+      '#required' => TRUE,
+    );
+  
+    return system_settings_form($form);
+}
+
+/**
+ * Implements validation from the Form API.
+ * 
+ * @param $form
+ *   A structured array containing the elements and properties of the form.
+ * @param $form_state
+ *   An array that stores information about the form's current state 
+ *   during processing.
+ */
+function latest_posts_form_validate($form, &$form_state){
+  $max_num = $form_state['values']['latest_posts_limit'];
+  if (!is_numeric($max_num)){
+    form_set_error('latest_posts_limit', t('You must enter a number for the maximum number of posts to display.'));
+  }
+  elseif ($max_num <= 0){
+    form_set_error('latest_posts_limit', t('Maximum number of posts to display must be positive.'));
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function latest_posts_permission() {
+  return array(
+    'access latest_posts content' => array(
+      'title' => t('Access content for the Latest posts module'),
+    )
+  );
+}
+
+/**
+ * Custom page callback function, declared in current_posts_menu().
+ */
+function _latest_posts_page(&$page) {
+
+	$result = recent_posts_contents('page');
+	//Array to contain items for the page to render.
+	$items = array();
+	//Iterate over the resultset and format as links.
+	foreach ($result as $node) {
+		$items[] = array(
+			'title' => l($node->title, 'node/' . $node->nid),
+		); 
+	}
+  $page['title'] = t('All posts from the last 2 weeks');
+	if (empty($items)) { //No content in the last week.
+		$page['content'] = t('No posts available.');
+	}
+	else {
+		$page['content'] = theme('latest_posts_template', array(
+                      'items' => $items));
+	}
+  /*echo "<pre>";
+  print_r($page);*/
+  return $page;
+}
+
+/*function __latest_posts_page() {
+    $result = recent_posts_contents('page');
+    
+    //Array to contain items for the page to render.
+    $items = array();
+    //Iterate over the resultset and format as links.
+    foreach ($result as $node) {
+        $items[] = array(
+            'data' => l($node->title, 'node/' . $node->nid),
+        ); 
+    }
+    // No content in the last week.
+    if (empty($items)) {
+        $block['content'] = t('No posts available.');  
+    } 
+    else {
+        // Pass data through theme function.
+        $block['content'] = theme('latest_posts_template', array(
+          'items' => $items));
+    }
+    return $block;
+}*/
+
+
+function latest_posts_theme(){
+    return array(
+        'latest_posts_template' => array(
+            'variables' => array('items' => NULL),
+            'template' => 'latest-posts',
+            'path' => drupal_get_path('module', 'latest_posts') .'/templates',
+            /*'path' => drupal_get_path('theme',$GLOBALS['theme']);*/
+            
+        )
+    );
+}
+

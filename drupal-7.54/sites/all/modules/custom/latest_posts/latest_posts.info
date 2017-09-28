@@ -1,0 +1,5 @@
+name = Latest Posts
+description = A block module that lists links to newly created posts developed by CodexWorld.
+core = 7.x
+; NEW LINE	
+configure = admin/config/content/latest_posts

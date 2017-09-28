@@ -1,0 +1,44 @@
+PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/lib/php/20151012/php_pdo_mysql.dll' - /usr/lib/php/20151012/php_pdo_mysql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/lib/php/20151012/php_pdo_mysql.dll' - /usr/lib/php/20151012/php_pdo_mysql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+Resource id #5PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Warning:  socket_getpeername(): unable to retrieve peer name [107]: Transport endpoint is not connected in /var/www/html/socket/php-socket.php on line 48
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Warning:  socket_getpeername(): unable to retrieve peer name [107]: Transport endpoint is not connected in /var/www/html/socket/php-socket.php on line 48
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Warning:  socket_getpeername(): unable to retrieve peer name [107]: Transport endpoint is not connected in /var/www/html/socket/php-socket.php on line 48
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Warning:  socket_recv(): unable to read from socket [104]: Connection reset by peer in /var/www/html/socket/php-socket.php on line 37
+PHP Warning:  socket_getpeername(): unable to retrieve peer name [107]: Transport endpoint is not connected in /var/www/html/socket/php-socket.php on line 48
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Warning:  socket_recv(): unable to read from socket [104]: Connection reset by peer in /var/www/html/socket/php-socket.php on line 37
+PHP Warning:  socket_getpeername(): unable to retrieve peer name [107]: Transport endpoint is not connected in /var/www/html/socket/php-socket.php on line 48
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Warning:  socket_getpeername(): unable to retrieve peer name [107]: Transport endpoint is not connected in /var/www/html/socket/php-socket.php on line 48
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Warning:  socket_getpeername(): unable to retrieve peer name [107]: Transport endpoint is not connected in /var/www/html/socket/php-socket.php on line 48
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Warning:  socket_getpeername(): unable to retrieve peer name [107]: Transport endpoint is not connected in /var/www/html/socket/php-socket.php on line 48
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Warning:  socket_getpeername(): unable to retrieve peer name [107]: Transport endpoint is not connected in /var/www/html/socket/php-socket.php on line 48
+PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/lib/php/20151012/php_pdo_mysql.dll' - /usr/lib/php/20151012/php_pdo_mysql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+Resource id #5PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Warning:  socket_recv(): unable to read from socket [104]: Connection reset by peer in /var/www/html/socket/php-socket.php on line 37
+PHP Warning:  socket_getpeername(): unable to retrieve peer name [107]: Transport endpoint is not connected in /var/www/html/socket/php-socket.php on line 48
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Notice:  Trying to get property of non-object in /var/www/html/socket/php-socket.php on line 41
+PHP Warning:  socket_recv(): unable to read from socket [104]: Connection reset by peer in /var/www/html/socket/php-socket.php on line 37
+PHP Warning:  socket_getpeername(): unable to retrieve peer name [107]: Transport endpoint is not connected in /var/www/html/socket/php-socket.php on line 48
